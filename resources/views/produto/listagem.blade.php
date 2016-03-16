@@ -106,6 +106,57 @@ Você não tem produtos cadastrados
 	<tbody>
 		<tr>
 		@foreach ($produtos as $key=>$p)
+
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+<!-- INICIO DO MODAL DE UPDATE PRODUTO -->
+
+<div id="divAlterar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">Alterar Produto</h4> 
+ </div>
+ <div class="modal-body">
+	<form id="formUpdate" method="post">
+		<input type="hidden"
+		name="_token" value="{{{ csrf_token() }}}" />
+
+		<div class="form-group">
+	 			<label>Nome:</label>
+			<input name="nome" class="form-control" id="prodNomeEdit" value="{{ $p->nome }}"/>
+		</div>
+
+		<div class="form-group">
+			<label>Descrição:</label>
+			<input name="descricao" class="form-control" id="prodDescEdit" value="{{ $p->descricao }}"/>
+		</div>
+
+		<div class="form-group">
+			<label>Valor:</label>
+			<input name="valor" class="form-control" id="prodValEdit" value="{{ $p->valor }}"/> 
+		</div>
+
+		<div class="form-group">
+			<label>Quantidade:</label>
+			<input name="quantidade" type="number" class="form-control" id="prodQntEdit" value="{{ $p->quantidade }}"/> 
+		</div>
+
+			<button type="submit" class="btn btn-primary btn-block">Update</button>
+	</form>
+  </div>
+
+</div>
+
+
+<!-- FIM DO MODAL DE UPDATE -->
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+
+
+
+		
 		<td> {{ $p->id }} </td>
 		<td> {{ $p->nome }}  </td>
 		<td> {{ $p->descricao }} </td>
@@ -175,59 +226,7 @@ Você não tem produtos cadastrados
 
 </div>
 <!-- FIM DO MODAL DE LISTAGEM-->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
-<!-- INICIO DO MODAL DE UPDATE PRODUTO -->
 
-<script type="text/javascript">
-$(document).ready(function(){
-
-
-});
-</script>
-
-<div id="divAlterar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">Alterar Produto</h4> 
- </div>
- <div class="modal-body">
-	<form id="formUpdate" method="post">
-		<input type="hidden"
-		name="_token" value="{{{ csrf_token() }}}" />
-
-		<div class="form-group">
-	 			<label>Nome:</label>
-			<input name="nome" class="form-control" id="prodNomeEdit" value="{{ $p->nome }}"/>
-		</div>
-
-		<div class="form-group">
-			<label>Descrição:</label>
-			<input name="descricao" class="form-control" id="prodDescEdit" value="{{ $p->descricao }}"/>
-		</div>
-
-		<div class="form-group">
-			<label>Valor:</label>
-			<input name="valor" class="form-control" id="prodValEdit" value="{{ $p->valor }}"/> 
-		</div>
-
-		<div class="form-group">
-			<label>Quantidade:</label>
-			<input name="quantidade" type="number" class="form-control" id="prodQntEdit" value="{{ $p->quantidade }}"/> 
-		</div>
-
-			<button type="submit" class="btn btn-primary btn-block">Update</button>
-	</form>
-  </div>
-
-</div>
-
-
-<!-- FIM DO MODAL DE UPDATE -->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
 
 	@endif
 	@if(old('nome'))

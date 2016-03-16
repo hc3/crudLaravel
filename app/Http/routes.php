@@ -96,7 +96,7 @@ Route::get('/veiculos','VeiculoController@lista');
 
 Route::get('/veiculos/novo','VeiculoController@novo');
 
-Route::get('/veiculos/adiciona','VeiculoController@adiciona');
+Route::post('/veiculos/adiciona','VeiculoController@adiciona');
 
 /*
 |--------------------------------------------------------------------------
@@ -118,4 +118,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/servicos','ServicoController@lista');
 
     Route::get('/pecas','PecaController@lista');
+
+    Route::get('/veiculos','VeiculoController@lista');
 });

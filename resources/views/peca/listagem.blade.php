@@ -94,6 +94,49 @@ Você não tem pecas cadastrados
 		 
 		<tr>
 		@foreach ($pecas as $key=>$peca)
+
+
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+<!-- INICIO DO MODAL DE UPDATE PRODUTO -->
+<div id="divAlterar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">Inserir Produto</h4> 
+ </div>
+ <div class="modal-body">
+	<form id="formUpdate" method="post">
+		<input type="hidden"
+		name="_token" value="{{{ csrf_token() }}}" />
+
+		<div class="form-group">
+			<label>Descrição:</label>
+			<input name="descricao" id="pecaDescEdit" class="form-control" value="{{ $peca->descricao }}"/>
+		</div>
+
+		<div class="form-group">
+			<label>Valor:</label>
+			<input name="valor" id="pecaValEdit" class="form-control" value="{{ $peca->valor }}"/> 
+		</div>
+
+		<div class="form-group">
+			<label>Quantidade:</label>
+			<input name="quantidade" type="number" id="pecaQntEdit" class="form-control" value="{{ $peca->quantidade }}"/> 
+		</div>
+
+		<button type="submit" class="btn btn-primary btn-block">Update</button>
+	</form>
+  </div>
+
+</div>
+<!-- FIM DO MODAL DE UPDATE -->
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+
+
+		
 		<td> {{ $peca->id }} </td>
 		<td> {{ $peca->descricao }} </td>
 		<td> {{ $peca->valor }} </td>
@@ -153,44 +196,6 @@ Você não tem pecas cadastrados
 </div>
 
 <!-- FIM DO MODAL DE LISTAGEM-->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
-<!-- INICIO DO MODAL DE UPDATE PRODUTO -->
-<div id="divAlterar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">Inserir Produto</h4> 
- </div>
- <div class="modal-body">
-	<form id="formUpdate" method="post">
-		<input type="hidden"
-		name="_token" value="{{{ csrf_token() }}}" />
-
-		<div class="form-group">
-			<label>Descrição:</label>
-			<input name="descricao" id="pecaDescEdit" class="form-control" value="{{ $peca->descricao }}"/>
-		</div>
-
-		<div class="form-group">
-			<label>Valor:</label>
-			<input name="valor" id="pecaValEdit" class="form-control" value="{{ $peca->valor }}"/> 
-		</div>
-
-		<div class="form-group">
-			<label>Quantidade:</label>
-			<input name="quantidade" type="number" id="pecaQntEdit" class="form-control" value="{{ $peca->quantidade }}"/> 
-		</div>
-
-		<button type="submit" class="btn btn-primary btn-block">Update</button>
-	</form>
-  </div>
-
-</div>
-<!-- FIM DO MODAL DE UPDATE -->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
 
 	@endif
 	@if(old('nome'))

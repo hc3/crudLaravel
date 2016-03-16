@@ -2,6 +2,34 @@
 
 @section('conteudo')
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.buscar').on('click',function() {
+			var id = $(this).attr('id');
+			var obj = $(this).data('id');
+			
+			$('#descServ').val(obj[id].descricao);
+			$('#valServ').val(obj[id].valor);
+			$('#divBuscar').modal('show');
+		});
+		$('.editar').on('click',function() {
+			var id = $(this).attr('id');
+			var obj = $(this).data('id');
+			var idUpdate = $(this).attr('value');
+
+			console.log('o id é: '+id);
+			console.log('o index é: '+obj);
+			//console.log('o id do objeto é :'+idUpdate);
+			//$('#modalBuscar').html(id[$('.buscar').val()].nome);
+			$('#servDescEdit').val(obj[id].descricao);
+			$('#servValEdit').val(obj[id].valor);
+			$('#divAlterar').modal('show');
+			$('#formUpdate').attr('action','/servicos/atualizar/'+idUpdate);
+		});
+		$('#tabelaServico').DataTable();
+	});
+</script>
+
 @if(empty($servicos))
 	<div class="alert alert-danger">
 		Você não tem servicos cadastrados
@@ -60,87 +88,6 @@
 		 <tbody>
 		 	<tr>	
 		 	@foreach ($servicos as $key=>$servico)	
-			<td> {{ $servico->id }} </td>
-			<td> {{ $servico->descricao }}  </td>
-			<td> {{ $servico->valor }} </td>
-			<td align="center">
-				<a class="buscar" id="{{ $key }}" data-toggle="modal" data-id="{{ $servicos }}">
-					<span class="glyphicon glyphicon-eye-open"></span>
-				</a>
-			</td>
-			
-			<td align="center">
-				<a href="/servicos/remove/<?= $servico->id ?>">
-					<span class="glyphicon glyphicon-trash"> </span>
-				</a>
-			</td>
-			<td align="center">
-				<a class="editar" id="{{ $key }}" data-toggle="modal" data-id="{{ $servicos }}" value="{{ $servico->id }}">
-					<span class="glyphicon glyphicon-pencil"></span>
-				</a>
-			</td>
-			</tr>
-			@endforeach
-		</tbody>
-		
-		</table>
-		
-	</div>
-<!--#######################################################################################-->
-<!--#######################################################################################-->
-<!--#######################################################################################-->
-<!-- INICIO DO MODAL DE LISTAGEM DE SERVICO  -->
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('.buscar').on('click',function() {
-			var id = $(this).attr('id');
-			var obj = $(this).data('id');
-			
-			$('#descServ').val(obj[id].descricao);
-			$('#valServ').val(obj[id].valor);
-			$('#divBuscar').modal('show');
-		});
-		$('.editar').on('click',function() {
-			var id = $(this).attr('id');
-			var obj = $(this).data('id');
-			var idUpdate = $(this).attr('value');
-
-			console.log('o id é: '+id);
-			console.log('o index é: '+obj);
-			//console.log('o id do objeto é :'+idUpdate);
-			//$('#modalBuscar').html(id[$('.buscar').val()].nome);
-			$('#servDescEdit').val(obj[id].descricao);
-			$('#servValEdit').val(obj[id].valor);
-			$('#divAlterar').modal('show');
-			$('#formUpdate').attr('action','/servicos/atualizar/'+idUpdate);
-		});
-		$('#tabelaServico').DataTable();
-	});
-</script>
-<div id="divBuscar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">Visualizar Serviço</h4> 
- </div>
- <div class="modal-body">
-	<form>
-		<input type="hidden"
-		name="_token" value="{{{ csrf_token() }}}" />
-
-		<div class="form-group">
-			<label>Descrição:</label>
-			<input name="descricao" id="descServ" disabled class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Valor:</label>
-			<input name="valor" id="valServ" disabled class="form-control"/> 
-		</div>
-
-	</form>
-  </div>
-</div>
-<!-- FIM DO MODAL DE LISTAGEM-->
 <!--#######################################################################################-->
 <!--#######################################################################################-->
 <!--#######################################################################################-->
@@ -176,6 +123,65 @@
 <!--#######################################################################################-->
 <!--#######################################################################################-->
 <!--#######################################################################################-->
+
+
+
+			<td> {{ $servico->id }} </td>
+			<td> {{ $servico->descricao }}  </td>
+			<td> {{ $servico->valor }} </td>
+			<td align="center">
+				<a class="buscar" id="{{ $key }}" data-toggle="modal" data-id="{{ $servicos }}">
+					<span class="glyphicon glyphicon-eye-open"></span>
+				</a>
+			</td>
+			
+			<td align="center">
+				<a href="/servicos/remove/<?= $servico->id ?>">
+					<span class="glyphicon glyphicon-trash"> </span>
+				</a>
+			</td>
+			<td align="center">
+				<a class="editar" id="{{ $key }}" data-toggle="modal" data-id="{{ $servicos }}" value="{{ $servico->id }}">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</a>
+			</td>
+			</tr>
+			@endforeach
+		</tbody>
+		
+		</table>
+		
+	</div>
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+<!--#######################################################################################-->
+<!-- INICIO DO MODAL DE LISTAGEM DE SERVICO  -->
+
+<div id="divBuscar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">Visualizar Serviço</h4> 
+ </div>
+ <div class="modal-body">
+	<form>
+		<input type="hidden"
+		name="_token" value="{{{ csrf_token() }}}" />
+
+		<div class="form-group">
+			<label>Descrição:</label>
+			<input name="descricao" id="descServ" disabled class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Valor:</label>
+			<input name="valor" id="valServ" disabled class="form-control"/> 
+		</div>
+
+	</form>
+  </div>
+</div>
+<!-- FIM DO MODAL DE LISTAGEM-->
+
 
 	@endif
 	@if(old('nome'))

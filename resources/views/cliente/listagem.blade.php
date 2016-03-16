@@ -36,7 +36,7 @@ $(document).ready(function(){
 		$('#divAlterar').modal('show');
 		$('#formUpdate').attr('action','/clientes/atualizar/'+idUpdate);
 	});
-	$('#tabelaCliente').DataTable();
+	//$('#tabelaCliente').DataTable();
 });
 </script>
 
@@ -135,6 +135,71 @@ $(document).ready(function(){
 		<tbody>
 			<tr>
 			@foreach ($clientes as $key=>$cli)
+
+
+
+<div id="divAlterar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">Inserir Produto</h4> 
+	</div>
+<div class="modal-body">
+ 	<form id="formUpdate" method="post">
+	<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+
+		<div class="form-group">
+			<label>Nome:</label>
+			<input name="nome" id="cliNomeEdit"  value="{{ $cli->nome }}"class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Idade:</label>
+			<input name="idade" id="cliIdadeEdit"  value="{{ $cli->idade }}"class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Cpf:</label>
+			<input name="cpf" id="cliCpfEdit"  value="{{ $cli->cpf }}"class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Email:</label>
+			<input name="email" id="cliEmailEdit"  value="{{ $cli->email }}"class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Telefone:</label>
+			<input name="telefone" id="cliTelefoneEdit"  value="{{ $cli->telefone }}"class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Rua:</label>
+			<input name="rua" id="cliRuaEdit"  value="{{ $cli->endereco->rua }}"class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Bairro:</label>
+			<input name="bairro" id="cliBairroEdit"  value="{{ $cli->endereco->bairro }}"class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Cep:</label>
+			<input name="cep" id="cliCepEdit" value="{{ $cli->endereco->cep }}"class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Cidade:</label>
+			<input name="cidade" id="cliCidadeEdit" value="{{ $cli->endereco->cidade }}"class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<label>Estado:</label>
+			<input name="uf" id="cliEstado"  value="{{ $cli->endereco->estado }}"class="form-control"/>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">Update</button>
+	</form>
+</div>
+</div>
+
 				<td> {{ $cli->id }} </td>
 				<td> {{ $cli->nome }}  </td>
 				<td> {{ $cli->idade }} </td>
@@ -231,67 +296,7 @@ LINK COM O ID buscar
 
 <!--FIM DO MODAL-->	
 
-<div id="divAlterar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">Inserir Produto</h4> 
-	</div>
-<div class="modal-body">
- 	<form id="formUpdate" method="post">
-	<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 
-		<div class="form-group">
-			<label>Nome:</label>
-			<input name="nome" id="cliNomeEdit"  value="{{ $cli->nome }}"class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Idade:</label>
-			<input name="idade" id="cliIdadeEdit"  value="{{ $cli->idade }}"class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Cpf:</label>
-			<input name="cpf" id="cliCpfEdit"  value="{{ $cli->cpf }}"class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Email:</label>
-			<input name="email" id="cliEmailEdit"  value="{{ $cli->email }}"class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Telefone:</label>
-			<input name="telefone" id="cliTelefoneEdit"  value="{{ $cli->telefone }}"class="form-control"/>
-		</div>
-		<div class="form-group">
-			<label>Rua:</label>
-			<input name="rua" id="cliRuaEdit"  value="{{ $cli->endereco->rua }}"class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Bairro:</label>
-			<input name="bairro" id="cliBairroEdit"  value="{{ $cli->endereco->bairro }}"class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Cep:</label>
-			<input name="cep" id="cliCepEdit" value="{{ $cli->endereco->cep }}"class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Cidade:</label>
-			<input name="cidade" id="cliCidadeEdit" value="{{ $cli->endereco->cidade }}"class="form-control"/>
-		</div>
-
-		<div class="form-group">
-			<label>Estado:</label>
-			<input name="uf" id="cliEstado"  value="{{ $cli->endereco->estado }}"class="form-control"/>
-		</div>
-		<button type="submit" class="btn btn-primary btn-block">Update</button>
-	</form>
-</div>
-</div>
 
 
 @endif
