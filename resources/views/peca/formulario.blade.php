@@ -1,15 +1,10 @@
 @extends('layout.principal')
 @section('conteudo')
-<h1>Novo Produto</h1>
+<h1>Novo Peça</h1>
 
-<form action="/produtos/adiciona" method="post">
+<form action="/pecas/adiciona" method="post">
 	<input type="hidden"
 	name="_token" value="{{{ csrf_token() }}}" />
-
-	<div class="form-group">
-		<label>Nome:</label>
-		<input name="nome" class="form-control"/>
-	</div>
 
 	<div class="form-group">
 		<label>Descrição:</label>
@@ -30,4 +25,3 @@
 </form>
 
 @stop
-

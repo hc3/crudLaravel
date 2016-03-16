@@ -2,67 +2,56 @@
 
 @section('conteudo')
 <script type="text/javascript">
-$(document).ready(function(){
-	$('.buscar').on('click',function(){
+$(document).ready(function() {
+	$('.buscar').on('click',function() {
 		var id = $(this).attr('id');
-		var objJson = $(this).data('id');
-		
-		console.log('o id é: '+id);
-		console.log('o index é: '+objJson);
-		//$('#modalBuscar').html(id[$('.buscar').val()].nome);
-		$('#prodNome').val(objJson[id].nome);
-		$('#prodDesc').val(objJson[id].descricao);
-		$('#prodVal').val(objJson[id].valor);
-		$('#prodQnt').val(objJson[id].quantidade);
+		var obj = $(this).data('id');
+
+		$('#pecaDesc').val(obj[id].descricao);
+		$('#pecaVal').val(obj[id].valor);
+		$('#pecaQnt').val(obj[id].quantidade);
 		$('#divBuscar').modal('show');
 	});
 	$('.editar').on('click',function(){
 		var id = $(this).attr('id');
-		var objJson = $(this).data('id');
+		var obj = $(this).data('id');
 		var idUpdate = $(this).attr('value');
 		
 		console.log('o id é: '+id);
-		console.log('o index é: '+objJson);
-		//console.log('o id do objeto é :'+idUpdate);
+		console.log('o index é: '+obj);
+		console.log('o id do objeto é :'+idUpdate);
 		//$('#modalBuscar').html(id[$('.buscar').val()].nome);
-		$('#prodNomeEdit').val(objJson[id].nome);
-		$('#prodDescEdit').val(objJson[id].descricao);
-		$('#prodValEdit').val(objJson[id].valor);
-		$('#prodQntEdit').val(objJson[id].quantidade);
+		$('#pecaDescEdit').val(obj[id].descricao);
+		$('#pecaValEdit').val(obj[id].valor);
+		$('#pecaQntEdit').val(obj[id].quantidade);
 		$('#divAlterar').modal('show');
-		$('#formUpdate').attr('action','/produtos/atualizar/'+idUpdate);
+		$('#formUpdate').attr('action','/pecas/atualizar/'+idUpdate);
 	});
-	$('#tabelaProduto').DataTable();
+	$('#tabelaPeca').DataTable();
 });
 </script>
-
-@if(empty($produtos))
+@if(empty($pecas))
 <div class="alert alert-danger">
-Você não tem produtos cadastrados
+Você não tem pecas cadastrados
 </div>
 @else
 <div class="container">
-	<h1>Produtos</h1>
-<!--  BOTÃO QUE CHAMA O MODAL PARA CADASTRAR PRODUTO   -->
+	<h1>Peças</h1>
+<!--  BOTÃO QUE CHAMA O MODAL PARA CADASTRAR PEÇA   -->
 	<button class="demo btn btn-primary btn-large" data-toggle="modal" href="#responsive">Cadastrar</button>
 <!--#######################################################################################-->
 <!--#######################################################################################-->
 <!--#######################################################################################-->
-<!-- MODAL PARA CADASTRAR PRODUTO -->
+<!-- MODAL PARA CADASTRAR PEÇA -->
 	<div id="responsive" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
-		<div class="modal-header">
-    		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    		<h4 class="modal-title">Inserir Produto</h4>
-  		</div>
-<div class="modal-body">
-	<form action="/produtos/adiciona" method="post">
-			<input type="hidden"
-			name="_token" value="{{{ csrf_token() }}}" />
-
-			<div class="form-group">
-			<label>Nome:</label>
-			<input name="nome" class="form-control"/>
-			</div>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">Inserir Peça</h4>
+  </div>
+  <div class="modal-body">
+  		<!-- URL QUE SERA REQUISITADA -->
+		<form action="/pecas/adiciona" method="post">
+			<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 
 			<div class="form-group">
 			<label>Descrição:</label>
@@ -80,8 +69,8 @@ Você não tem produtos cadastrados
 			</div>
 
 			<button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
-	</form>
- </div>
+		</form>
+  </div>
 </div>
 <!-- FIM MODAL -->
 <!--#######################################################################################-->
@@ -89,11 +78,10 @@ Você não tem produtos cadastrados
 <!--#######################################################################################-->
 	</br>
 	</br>
-	<table id="tabelaProduto" class="table table-striped table-bordered table-hover">
-	<thead>
+	<table id="tabelaPeca" class="table table-striped table-bordered table-hover">
+	<thead>	
 		<tr>
 			<th>Id</th>
-			<th>Nome</th>
 			<th>Descrição</th>
 			<th>Valor</th>
 			<th>Quantidade</th>
@@ -102,42 +90,36 @@ Você não tem produtos cadastrados
 			<th></th>
 		</tr>
 	</thead>
-		
 	<tbody>
+		 
 		<tr>
-		@foreach ($produtos as $key=>$p)
-		<td> {{ $p->id }} </td>
-		<td> {{ $p->nome }}  </td>
-		<td> {{ $p->descricao }} </td>
-		<td> {{ $p->valor }} </td>
-		<td> {{ $p->quantidade }} </td>	
-		<!-- 
-			MENU 
-			#BUSCAR
-			#REMOVER
-			#ALTERAR
-		-->
+		@foreach ($pecas as $key=>$peca)
+		<td> {{ $peca->id }} </td>
+		<td> {{ $peca->descricao }} </td>
+		<td> {{ $peca->valor }} </td>
+		<td> {{ $peca->quantidade }} </td>
 		<td align="center">
-			<a class="buscar" id="{{ $key }}" data-toggle="modal" data-id="{{ $produtos }}">
+
+			<a class="buscar" id="{{ $key }}" data-toggle="modal" data-id="{{ $pecas }}">
 			<span class="glyphicon glyphicon-eye-open"></span>
 			</a>
 		</td>
 
 		<td align="center">
-			<a href="/produtos/remove/{{ $p->id }}">
+			<a href="/pecas/remove/<?= $peca->id ?>">
 			<span class="glyphicon glyphicon-trash"> </span>
 			</a>
 		</td>
 		<td align="center">
-			<a class="editar" id="{{ $key }}" data-toggle="modal" data-id="{{ $produtos }}" value="{{ $p->id }}"> 
+			<a class="editar" id="{{ $key }}" data-toggle="modal" data-id="{{ $pecas }}" value="{{ $peca->id }}">
 			<span class="glyphicon glyphicon-pencil"></span>
 			</a>
 		</td>
 		</tr>
 		@endforeach
 	</tbody>
-
-</table>
+	
+	</table>
 <!--#######################################################################################-->
 <!--#######################################################################################-->
 <!--#######################################################################################-->
@@ -145,52 +127,40 @@ Você não tem produtos cadastrados
 <div id="divBuscar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">Visualizar Produto</h4> 
+    <h4 class="modal-title">Visualizar Peça</h4> 
  </div>
- <div class="modal-body" id="modalBuscar">
-		<form>
-			<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+ <div class="modal-body">
+ 			<form>
+				<input type="hidden"
+				name="_token" value="{{{ csrf_token() }}}" />
 
-			<div class="form-group">
-				<label>Nome:</label>
-				<input name="nome" id="prodNome" disabled class="form-control" id="nomePrd"/>
-			</div>
+				<div class="form-group">
+					<label>Descrição:</label>
+					<input name="descricao" id="pecaDesc" disabled class="form-control"/>
+				</div>
 
-			<div class="form-group">
-				<label>Descrição:</label>
-				<input name="descricao" id="prodDesc" disabled class="form-control"/>
-			</div>
+				<div class="form-group">
+					<label>Valor:</label>
+					<input name="valor" id="pecaVal" disabled class="form-control"/> 
+				</div>
 
-			<div class="form-group">
-				<label id="total">Valor:</label>
-				<input name="valor" id="prodVal" disabled class="form-control"/> 
-			</div>
-
-			<div class="form-group">
-				<label>Quantidade:</label>
-				<input name="quantidade" id="prodQnt" type="number" disabled class="form-control"/> 
-			</div>
-		</form>
+				<div class="form-group">
+					<label>Quantidade:</label>
+					<input name="quantidade" id="pecaQnt" disabled type="number" class="form-control"/> 
+				</div>
+			</form>
   </div>
-
 </div>
+
 <!-- FIM DO MODAL DE LISTAGEM-->
 <!--#######################################################################################-->
 <!--#######################################################################################-->
 <!--#######################################################################################-->
 <!-- INICIO DO MODAL DE UPDATE PRODUTO -->
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-
-});
-</script>
-
 <div id="divAlterar" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">Alterar Produto</h4> 
+    <h4 class="modal-title">Inserir Produto</h4> 
  </div>
  <div class="modal-body">
 	<form id="formUpdate" method="post">
@@ -198,32 +168,25 @@ $(document).ready(function(){
 		name="_token" value="{{{ csrf_token() }}}" />
 
 		<div class="form-group">
-	 			<label>Nome:</label>
-			<input name="nome" class="form-control" id="prodNomeEdit" value="{{ $p->nome }}"/>
-		</div>
-
-		<div class="form-group">
 			<label>Descrição:</label>
-			<input name="descricao" class="form-control" id="prodDescEdit" value="{{ $p->descricao }}"/>
+			<input name="descricao" id="pecaDescEdit" class="form-control" value="{{ $peca->descricao }}"/>
 		</div>
 
 		<div class="form-group">
 			<label>Valor:</label>
-			<input name="valor" class="form-control" id="prodValEdit" value="{{ $p->valor }}"/> 
+			<input name="valor" id="pecaValEdit" class="form-control" value="{{ $peca->valor }}"/> 
 		</div>
 
 		<div class="form-group">
 			<label>Quantidade:</label>
-			<input name="quantidade" type="number" class="form-control" id="prodQntEdit" value="{{ $p->quantidade }}"/> 
+			<input name="quantidade" type="number" id="pecaQntEdit" class="form-control" value="{{ $peca->quantidade }}"/> 
 		</div>
 
-			<button type="submit" class="btn btn-primary btn-block">Update</button>
+		<button type="submit" class="btn btn-primary btn-block">Update</button>
 	</form>
   </div>
 
 </div>
-
-
 <!-- FIM DO MODAL DE UPDATE -->
 <!--#######################################################################################-->
 <!--#######################################################################################-->
@@ -232,7 +195,7 @@ $(document).ready(function(){
 	@endif
 	@if(old('nome'))
 	<div class="alert alert-success">
-		<strong>Sucesso!</strong> O Produto {{ old('nome') }} foi adicionado com sucesso
+		<strong>Sucesso!</strong>A Peça {{ old('nome') }} foi adicionado com sucesso
 	</div>
 @endif
 @stop

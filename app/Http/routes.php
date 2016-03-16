@@ -16,6 +16,10 @@ Route::get('/', function () {
 });
 
 
+/**
+RODAS DA ENTIDADE PRODUTO
+**/
+
 Route::get('/produtos' , 'ProdutoController@lista');
 
 Route::get('/produtos/show/{id?}','ProdutoController@show')->where('id','[0-9]+');
@@ -30,12 +34,69 @@ Route::get('/produtos/novo', 'ProdutoController@novo');
 
 Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
 
+
+
+/**
+RODAS DA ENTIDADE CLIENTE
+**/
 Route::get('/clientes','ClienteController@lista');
 
 Route::get('/clientes/novo','ClienteController@novo');
 
 Route::post('/clientes/adiciona','ClienteController@adiciona');
 
+Route::get('/clientes/show/{id?}','ClienteController@show')->where('id','[0-9]+');
+
+Route::get('/clientes/remove/{id}','ClienteController@remove');
+
+Route::get('/clientes/update/{id}','ClienteController@getForUpdate');
+
+Route::post('/clientes/atualizar/{id}','ClienteController@update');
+
+
+/**
+RODAS DA ENTIDADE SERVICO
+**/
+Route::get('/servicos','ServicoController@lista');
+
+Route::get('/servicos/novo','ServicoController@novo');
+
+Route::post('/servicos/adiciona','ServicoController@adiciona');
+
+Route::get('/servicos/show/{id?}','ServicoController@show')->where('id','[0-9]+');
+
+Route::get('/servicos/remove/{id}','ServicoController@remove');
+
+Route::get('/servicos/update/{id}','ServicoController@getForUpdate');
+
+Route::post('/servicos/atualizar/{id}','ServicoController@update');
+
+/**
+RODAS DA ENTIDADE PEÇA
+**/
+Route::get('/pecas','PecaController@lista');
+
+Route::get('/pecas/novo','PecaController@novo');
+
+Route::post('/pecas/adiciona','PecaController@adiciona');
+
+Route::get('/pecas/show/{id?}','PecaController@show')->where('id','[0-9]');
+
+Route::get('/pecas/remove/{id}','PecaController@remove');
+
+Route::get('/pecas/update/{id}','PecaController@getForUpdate');
+
+Route::post('/pecas/atualizar/{id}','PecaController@update');
+
+
+/**
+RODAS DA ENTIDADE VEICULO
+**/
+Route::get('/veiculos','VeiculoController@lista');
+
+Route::get('/veiculos/novo','VeiculoController@novo');
+
+Route::get('/veiculos/adiciona','VeiculoController@adiciona');
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +115,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/clientes','ClienteController@lista');
 
+    Route::get('/servicos','ServicoController@lista');
+
+    Route::get('/pecas','PecaController@lista');
 });

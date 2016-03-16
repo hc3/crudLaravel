@@ -56,13 +56,11 @@
 		<input name="uf" class="form-control"/>
 	</div>
 
+	<div>
+		adiciona
+	</div>
+
 		<button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
 </form>
 
 @stop
-
--rua
--bairro
--cep
--cidade
--uf

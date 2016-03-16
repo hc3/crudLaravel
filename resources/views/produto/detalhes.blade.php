@@ -1,23 +1,30 @@
 @extends('layout.principal')
 
 @section('conteudo')
-			<h1>Detalhes do produto: {{ $p->nome }}</h1>
+<h1>Detalhes do produto: {{ $produtos->nome }}</h1>
 
-			<ul>
-				<li>
-					<b>Nome: </b> R$ {{ $p->nome }}
-				</li>
+<form>
+	<input type="hidden"
+	name="_token" value="{{{ csrf_token() }}}" />
 
-				<li>
-					<b>Valor: </b> R$  {{ $p->valor }}
-				</li>
+	<div class="form-group">
+		<label>Nome:</label>
+		<input name="nome" disabled class="form-control" value="{{ $produtos->nome }}"/>
+	</div>
 
-				<li>
-					<b>Descrição: </b> R$  {{ $p->descricao }}
-				</li>
+	<div class="form-group">
+		<label>Descrição:</label>
+		<input name="descricao" disabled class="form-control" value="{{ $produtos->descricao }}"/>
+	</div>
 
-				<li>
-					<b>Quantidade: </b> R$ {{ $p->quantidade }}
-				</li>
-			</ul>
+	<div class="form-group">
+		<label id="total">Valor:</label>
+		<input name="valor" disabled class="form-control" value="{{ $produtos->valor }}"/> 
+	</div>
+
+	<div class="form-group">
+		<label>Quantidade:</label>
+		<input name="quantidade" type="number" disabled class="form-control" value="{{ $produtos->quantidade }}"/> 
+	</div>
+</form>
 @stop
